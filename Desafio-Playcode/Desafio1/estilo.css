@@ -1,0 +1,19 @@
+@charset 'utf-8';
+
+html
+{
+    box-sizing: border-box;
+}
+#contador
+{
+    float: right;
+    margin-right: 80px;
+}
+.post
+{
+    float: left;
+    width: 265px;
+    height: 180px;
+    margin: 10px;
+    padding: 5px;
+}

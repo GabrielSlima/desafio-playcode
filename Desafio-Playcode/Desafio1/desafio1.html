@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <header><h1>#desafio100videos <span id="contador"></span></h1></header>
+    
+    <script>
+        //Looping para escrever aos 13 videos que faltam (provavelmente irao ser automatizados)
+        //f -> faltam
+        //p -> postados
+        for (var f =0; f<13;f++)
+        {
+            document.write('<img class="post" src="../img/redirect.png" alt="Video nao postado">');
+        }
+
+        for (var p =0; p <87;p++)
+        {
+            document.write('<img class ="post" src="../img/img.jpeg" alt="">');
+        }
+
+        //Fazendo um contador para saber quantos videos faltam
+        c = 100 - p;
+        var mostrar = document.getElementById('contador');
+        mostrar.textContent = 'Faltam ' + c + ' videos';
+    </script>
+</body>
+</html>
