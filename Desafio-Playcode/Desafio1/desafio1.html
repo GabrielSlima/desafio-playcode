@@ -9,25 +9,44 @@
 </head>
 <body>
     <header><h1>#desafio100videos <span id="contador"></span></h1></header>
-    
+    <div id="campo">
+
+    </div>
     <script>
-        //Looping para escrever aos 13 videos que faltam (provavelmente irao ser automatizados)
-        //f -> faltam
-        //p -> postados
-        for (var f =0; f<13;f++)
+         var requisicao = new XMLHttpRequest()
+        requisicao.open('GET', 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails%2Cstatus&maxResults=50&playlistId=UUTJ1mLre8sT-d4KuvmQsSQA&key=AIzaSyDuoVMDOADhqyI7LtPEae2VHH3lmzm8qPw', true);
+        requisicao.onload = function ()
         {
-            document.write('<img class="post" src="../img/redirect.png" alt="Video nao postado">');
-        }
+            var resposta = JSON.parse(requisicao.responseText);
+            var items = resposta['items'];
+            var qnt_items = resposta['items'].length;
+            var diferenca = 50 - qnt_items;
+            if (qnt_items != 50)
+            {
+                var diferenca = 50 - qnt_items;
+                for(var i = 0; i<=diferenca; i++)
+                {
+                    document.getElementById('campo').innerHTML = '<img class="post" src="../img/redirect.png" alt="Video nao postado">';
+                }
+            }
 
-        for (var p =0; p <87;p++)
-        {
-            document.write('<img class ="post" src="../img/img.jpeg" alt="">');
-        }
-
-        //Fazendo um contador para saber quantos videos faltam
-        c = 100 - p;
-        var mostrar = document.getElementById('contador');
-        mostrar.textContent = 'Faltam ' + c + ' videos';
+            //PREENCHIMENTO DOS VIDEOS
+            for(var i = 0; i < qnt_items; i++)
+            {
+                document.getElementById('campo').innerHTML += '<div class="post" id="' + i.toString() + '"></div>';
+                document.getElementById(i.toString()).innerHTML += '<div id="sei' + i.toString() + '"></div>';
+                var img = resposta['items'][i]['snippet']['thumbnails']['high']['url'];
+                var link = resposta['items'][i]['contentDetails']['videoId'].toString();
+                document.getElementById('sei'+[i].toString()).innerHTML += '<a href="https://www.youtube.com/watch?v=' + link.toString()+ '"><img class="post" src="'+ img.toString() + '"></a><br>';
+               //console.log(resposta['items'][i]['contentDetails']['videoId']);
+            }
+            var mostrar = document.getElementById('contador');
+            mostrar.textContent = 'Faltam ' + diferenca + ' videos.';
+            
+        };
+        requisicao.send(null);
+       
+   
     </script>
 </body>
 </html>
